@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="yeti.css">
+    <title>FitnessApp</title>
+  </head>
+  <body>
+    <nav>
+      <h2>Meals</h2>
+      <h2></h2>
+    </nav>
+
+    <div class="container">
+        <div class="meal-active">
+            <h1>IF YOU WANNA GET BIG YOU GOTTA EAT BIG</h1>
+
+        <form id="meal-form">
+                <label for="meal-time">Time(hour):</label>
+                <input type="number" id="meal-time" class="form-control" min="0" max="23" placeholder="hour(0-23)">
+          
+                <label for="components">Meal comps</label>
+                <input type="text" id="meal-components" class="form-control">
+           
+                <label for="calories">Calories</label>
+                <input type="number" id="meal-calories" class="form-control">
+                <input type="submit" id="meal-submit" value="Add meal" class="btn btn-primary btn-block">
+        </form>
+        
+    </div>
+
+        </div>
+      <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <th>time(h)</th>
+            <th>meal name</th>
+            <th id="kcal">calories</th>
+          </tr>
+        </thead>
+        <tbody id="meal-list">
+          <td></td>
+        </tbody>
+      </table>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

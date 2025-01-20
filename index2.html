@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fitness Tracker</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+        background-color: #f9f9f9;
+        color: #333;
+      }
+      h1 {
+        text-align: center;
+        color: #444;
+      }
+      section {
+        margin-bottom: 40px;
+      }
+      form {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      label {
+        font-weight: bold;
+      }
+      input[type='text'],
+      input[type='number'] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        width: 50%;
+        padding: 10px 15px;
+        background-color: #48637f;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #5087c1;
+      }
+      table {
+        width: 80%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #6f90b3;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fitness Tracker</h1>
+
+    <section id="meals">
+      <h2>Meal Tracking</h2>
+
+      <form id="meal-form">
+        <label for="meal-time">Time (Hour):</label>
+        <input
+          type="number"
+          id="meal-time"
+          min="0"
+          max="23"
+          placeholder="Hour (0-23)"
+        />
+        <label for="meal-name">Meal Name:</label>
+        <input type="text" id="meal-name" placeholder="Meal Name" />
+        <label for="meal-calories">Calories:</label>
+        <input type="number" id="meal-calories" placeholder="Calories" />
+      </form>
+      <button type="button" onclick="addMeal()">Add</button>
+
+      <table id="meal-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Time (Hour)</th>
+            <th>Meal Name</th>
+            <th>Calories</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <script>
+      // Function to add a meal to the table
+      function addMeal() {
+        const timeField = document.getElementById('meal-time');
+        const nameField = document.getElementById('meal-name');
+        const caloriesField = document.getElementById('meal-calories');
+        const tableBody = document
+          .getElementById('meal-table')
+          .querySelector('tbody');
+
+        const timeValue = timeField.value.trim();
+        const nameValue = nameField.value.trim();
+        const caloriesValue = caloriesField.value.trim();
+
+        if (timeValue && nameValue && caloriesValue) {
+          const rowCount = tableBody.rows.length + 1;
+          const row = tableBody.insertRow();
+          row.insertCell(0).textContent = rowCount;
+          row.insertCell(1).textContent = timeValue;
+          row.insertCell(2).textContent = nameValue;
+          row.insertCell(3).textContent = caloriesValue;
+          timeField.value = '';
+          nameField.value = '';
+          caloriesField.value = '';
+        }
+      }
+
+      // Function to add exercise to the table
+      function addExercise(exerciseType) {
+        const inputField = document.getElementById(`${exerciseType}-item`);
+        const tableBody = document
+          .getElementById(`${exerciseType}-table`)
+          .querySelector('tbody');
+        const value = inputField.value.trim();
+
+        if (value) {
+          const rowCount = tableBody.rows.length + 1;
+          const row = tableBody.insertRow();
+          row.insertCell(0).textContent = rowCount;
+          row.insertCell(1).textContent = value;
+          inputField.value = '';
+        }
+      }
+    </script>
+  </body>
+</html>

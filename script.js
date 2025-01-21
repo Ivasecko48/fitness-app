@@ -32,11 +32,11 @@ class Meal {
 }
 
 class Tren {
-  constructor(exer, sets, reps, weight) {
+  constructor(name, sets, reps, weight) {
     this.id = Date.now();
     const d = new Date();
     this.date = d.toLocaleDateString('en-CA');
-    this.exer = exer;
+    this.exName = name;
     this.reps = reps;
     this.sets = sets;
     this.weight = weight;
@@ -77,7 +77,9 @@ class UI {
 
     list.appendChild(row);
   }
-  static deleteMeal(el) {
+
+  //deleting
+  static deleteItem(el) {
     if (el.classList.contains('delete')) {
       el.parentElement.parentElement.remove();
       UI.showAlert('NIGGA', 'success');
@@ -95,13 +97,7 @@ class UI {
     setTimeout(() => document.querySelector('.alert').remove(), 3000);
   }
 
-  static clearFields() {
-    document.querySelector('#meal-time').value = '';
-    document.querySelector('#meal-components').value = '';
-    document.querySelector('#meal-calories').value = '';
-  }
-
-//TREN section
+  //TREN section
 
   static displayExercise() {
     const exers = Store.getExercise();
@@ -113,43 +109,39 @@ class UI {
     const list = document.querySelector('#tren-list');
     const row = document.createElement('tr');
 
-    row.setAttribute('data-id', meal.id);
-    row.setAttribute('data-date', meal.date);
+    row.setAttribute('data-id', exer.id);
+    row.setAttribute('data-date', exer.date);
     row.innerHTML = `
-        <td>${meal.time}</td>
-        <td>${meal.comps}</td>
-        <td>${meal.comps}</td>
-        <td id="kcal">${meal.kcal}</td>
+        <td>${exer.exName}</td>
+        <td>${exer.sets}x${exer.reps}</td>
+        <td>${exer.weight}</td>
         <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
         `;
 
     list.appendChild(row);
-  }
-  static deleteMeal(el) {
-    if (el.classList.contains('delete')) {
-      el.parentElement.parentElement.remove();
-      UI.showAlert('NIGGA', 'success');
-    }
   }
 
   static showAlert(message, className) {
     const div = document.createElement('div');
     div.className = `alert alert-${className}`;
     div.appendChild(document.createTextNode(message));
-    const container = document.querySelectorAll('.container')[1];
-    const form = document.querySelector('#meal-form');
+    const container = document.querySelectorAll('.container')[2];
+    const form = document.querySelector('#tren-form');
     container.insertBefore(div, form);
     //vanish in spec time
-    setTimeout(() => document.querySelector('.alert').remove(), 3000);
+    setTimeout(() => document.querySelector('.alert').remove(), 4000);
   }
 
-  static clearFields() {
-    document.querySelector('#meal-time').value = '';
-    document.querySelector('#meal-components').value = '';
-    document.querySelector('#meal-calories').value = '';
-  }
-}
+  //clearing inputs
+  static clearFields(index) {
+    const container = document.querySelectorAll('.container')[index];
+    if (!container) return;
 
+    const inputs = container.querySelectorAll('input');
+    inputs.forEach((input) => {
+      input.value = '';
+    });
+  }
 }
 
 function filterRowsByDate(date) {
@@ -167,8 +159,6 @@ function filterRowsByDate(date) {
     row.style.display = rowDate == date ? '' : 'none';
   });
 }
-
-
 
 //store class
 class Store {
@@ -205,16 +195,16 @@ class Store {
   // for exer or tren xd
 
   static getExercise() {
-    let exer;
-    if (localStorage.getItem('exer') === null) {
-      exer = [];
+    let exers;
+    if (localStorage.getItem('exers') === null) {
+      exers = [];
     } else {
-      exer = JSON.parse(localStorage.getItem('exer'));
+      exers = JSON.parse(localStorage.getItem('exers'));
     }
-    return exer;
+    return exers;
   }
 
-  static addMeal(exer) {
+  static addExercise(exer) {
     const exers = Store.getExercise();
 
     exers.push(exer);
@@ -237,6 +227,7 @@ class Store {
 
 //event: display
 document.addEventListener('DOMContentLoaded', UI.displayMeals);
+document.addEventListener('DOMContentLoaded', UI.displayExercise);
 // filter and set date
 document.addEventListener('DOMContentLoaded', () => {
   const dateInput = document.getElementById('datePicker'); // Change this to your date input ID
@@ -266,7 +257,7 @@ document.querySelector('#meal-form').addEventListener('submit', (e) => {
   //show nigga msg
   UI.showAlert('NIGGA', 'success');
   //clear fields
-  UI.clearFields();
+  UI.clearFields(1);
 });
 
 //add exercise
@@ -278,25 +269,33 @@ document.querySelector('#tren-form').addEventListener('submit', (e) => {
   const sets = document.querySelector('#sets-select').value;
   const reps = document.querySelector('#reps-select').value;
   const weight = document.querySelector('#form-weight').value;
+
   //instantiate
   const exer = new Tren(exName, sets, reps, weight);
   const volume = Tren.calculateVolume(sets, reps, weight);
-  // add meal to UI
-  UI.addExerToList(exer);
-  //add meal to store
-  Store.addExer(exer);
-  //show nigga msg
+  // add exer to UI
+  UI.addExerciseToList(exer);
+  //add exer to store
+  Store.addExercise(exer);
+
   UI.showAlert('NIGGA', 'success');
-  //clear fields
-  UI.clearFields();
+
+  UI.clearFields(2);
 });
 
 //event:REMOVE
 document.querySelector('#meal-list').addEventListener('click', (e) => {
-  UI.deleteMeal(e.target); //from UI
+  UI.deleteItem(e.target); //from UI
   Meal.totalCalories();
   let id = e.target.parentElement.parentElement.getAttribute('data-id');
   Store.removeMeal(id); //from store
+});
+
+document.querySelector('#tren-list').addEventListener('click', (e) => {
+  UI.deleteItem(e.target); //from UI
+  Meal.totalCalories();
+  let id = e.target.parentElement.parentElement.getAttribute('data-id');
+  Store.removeExercise(id); //from store
 });
 
 //changing date
@@ -330,3 +329,4 @@ document.querySelector('#trening-nav').addEventListener('click', (e) => {
 //tasks: style it out!
 //navbar
 //total kcal and volume
+console.log(Store.getExercise());

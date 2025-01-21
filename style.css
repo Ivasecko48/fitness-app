@@ -6,17 +6,21 @@
 
 body .meal-page {
   background-image: url('images/dragonball-z-kakarot-full-course-meal-1.avif');
+}
+
+body .trening-page {
+  background-image: url('images/vegeta-turns-super-saiyan-2-in-battle-of-gods.avif');
+}
+
+body .meal-page,
+body .trening-page {
+  min-height: 94vh;
+  max-height: 100vh;
   background-size: cover; /* Ensure the image covers the entire screen */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Prevent the image from repeating */
 }
 
-body .trening-page {
-  background-image: url('images/vegeta-turns-super-saiyan-2-in-battle-of-gods.avif');
-  background-size: cover; /* Ensure the image covers the entire screen */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-}
 nav {
   width: 100%;
   padding: 15px 20px;

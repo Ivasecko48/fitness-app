@@ -31,10 +31,31 @@ class Meal {
   }
 }
 
-//exercise class
+class Tren {
+  constructor(exer, sets, reps, weight) {
+    this.id = Date.now();
+    const d = new Date();
+    this.date = d.toLocaleDateString('en-CA');
+    this.exer = exer;
+    this.reps = reps;
+    this.sets = sets;
+    this.weight = weight;
+  }
+
+  static calculateVolume(sets, reps, weight) {
+    return sets * reps * weight;
+  }
+
+  static totalVolume() {
+    const text = document.getElementById('totalVolume');
+    const totalVolume = Tren.calculateVolume();
+    text.innerHTML = 'Volume: ' + totalVolume;
+  }
+}
 
 // UI class
 class UI {
+  //meals
   static displayMeals() {
     const meals = Store.getMeals();
 
@@ -67,7 +88,7 @@ class UI {
     const div = document.createElement('div');
     div.className = `alert alert-${className}`;
     div.appendChild(document.createTextNode(message));
-    const container = document.querySelector('.container');
+    const container = document.querySelectorAll('.container')[1];
     const form = document.querySelector('#meal-form');
     container.insertBefore(div, form);
     //vanish in spec time
@@ -79,6 +100,8 @@ class UI {
     document.querySelector('#meal-components').value = '';
     document.querySelector('#meal-calories').value = '';
   }
+
+  //TREN section
 }
 
 function filterRowsByDate(date) {
@@ -190,8 +213,6 @@ document.querySelector('#trening-nav').addEventListener('click', (e) => {
   document.querySelector('.trening-page').classList.remove('hidden');
 });
 
-//tasks: background picture for meals and training
+//tasks: style it out!
 //navbar
-// sort by date
 //total kcal and volume
-//exercise tab (show,hide)

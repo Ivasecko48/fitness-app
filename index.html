@@ -12,7 +12,6 @@
     />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="yeti.css" />
-    -->
     <title>FitnessApp</title>
   </head>
   <body>
@@ -66,7 +65,7 @@
             <td></td>
           </tbody>
         </table>
-        <h2 id="totalKcalText">Total:</h2>
+        <h2 id="totalKcalText">Total cals:</h2>
       </div>
     </div>
 
@@ -84,7 +83,26 @@
           />
 
           <label for="reps">Sets x reps</label>
-          <input type="text" id="reps" class="form-control" />
+          <select name="sets" id="sets-select">
+            <option value="">--Sets--</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+
+          <select name="reps" id="reps-select">
+            <option value="">--Reps--</option>
+            <option value="12">12</option>
+            <option value="10">10</option>
+            <option value="8">8</option>
+            <option value="6">6</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="1">1</option>
+          </select>
 
           <label for="kilos">Weight</label>
           <input
@@ -114,7 +132,7 @@
             <td></td>
           </tbody>
         </table>
-        <h2 id="totalVolume">Total volume:</h2>
+        <h2 id="totalVolume">Volume:</h2>
       </div>
     </div>
     <script src="script.js"></script>

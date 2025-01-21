@@ -74,7 +74,7 @@ input[type='number']::-webkit-outer-spin-button {
   font-family: Arial;
 }
 
-.custom-select select {
+.custom-select {
   background-color: rgb(88, 146, 205);
   color: #ffffff;
   padding: 8px 16px;
@@ -105,4 +105,81 @@ input[type='number']::-webkit-outer-spin-button {
 
 .hidden {
   display: none;
+}
+
+@media only screen and (max-width: 840px) {
+  body h1 {
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  nav {
+    padding: 5px 10px;
+  }
+
+  nav .nav-links {
+    display: flex;
+  }
+
+  #meal-form {
+    display: grid; /* Use grid layout for the form */
+    grid-template-columns: auto 1fr; /* Label and input in two columns */
+    gap: 5px 10px; /* Add spacing between rows and columns */
+    align-items: center; /* Align items vertically */
+  }
+
+  #meal-form label {
+    text-align: left; /* Align labels to the right */
+    font-weight: bold; /* Optional: make labels bold */
+  }
+
+  #meal-form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-width: 300px;
+  }
+
+  #meal-submit {
+    grid-column: 1 / span 2; /* Make the submit button span both columns */
+    margin-top: 10px;
+  }
+
+  #tren-form {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px 10px;
+    align-items: center;
+  }
+
+  #tren-form label {
+    text-align: center; /* Right-align labels */
+    font-weight: bold; /* Optional: make labels bold */
+  }
+
+  #tren-form input,
+  #tren-form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 90%; /* Inputs and selects span the full column width */
+  }
+
+  #tren-form div {
+    display: flex;
+    gap: 10px; /* Space between "Sets" and "Reps" dropdowns */
+  }
+
+  #exer-submit {
+    grid-column: 1 / span 2; /* Make the button span across both columns */
+    margin-top: 10px;
+  }
+
+  input[type='number']{
+    width: 30%;
+  }
+
+input[type='submit'],input[type='text'] {
+  width: 80%;
 }

@@ -28,7 +28,6 @@
     <div class="meal-page">
       <div class="container">
         <h1>IF YOU WANNA GET BIG YOU GOTTA EAT BIG</h1>
-        <h2>Select Date to Filter Rows</h2>
         <form id="meal-form">
           <label for="meal-time">Time(hour):</label>
           <input
@@ -72,7 +71,6 @@
     <div class="trening-page hidden">
       <div class="container">
         <h1>IF YOU WANNA GET BIG YOU GOTTA TRAIN HARD</h1>
-        <h2>Select Date to Filter Rows</h2>
         <form id="tren-form">
           <label for="exercise-name">Exercise:</label>
           <input
@@ -81,37 +79,39 @@
             class="form-control"
             placeholder="name..."
           />
+
           <label for="reps">Sets x reps</label>
-          <div class="custom-select">
-            <select name="sets" id="sets-select">
-              <option value="">--Sets--</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </div>
-          <div class="custom-select">
-            <select name="reps" id="reps-select">
-              <option value="">--Reps--</option>
-              <option value="12">12</option>
-              <option value="10">10</option>
-              <option value="8">8</option>
-              <option value="6">6</option>
-              <option value="3">3</option>
-              <option value="5">5</option>
-              <option value="4">4</option>
-              <option value="1">1</option>
-            </select>
-          </div>
-          <label for="kilos">Weight</label>
+          <select class="custom-select" name="sets" id="sets-select">
+            <option value="">--Sets--</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+
+          <p></p>
+
+          <select class="custom-select" name="reps" id="reps-select">
+            <option value="">--Reps--</option>
+            <option value="12">12</option>
+            <option value="10">10</option>
+            <option value="8">8</option>
+            <option value="6">6</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="1">1</option>
+          </select>
+
+          <label for="form-weight">Weight:</label>
           <input
             type="number"
             id="form-weight"
             class="form-control"
             placeholder="in kilos"
           />
+
           <input
             type="submit"
             id="exer-submit"

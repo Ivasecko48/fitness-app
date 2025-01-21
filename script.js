@@ -2,11 +2,32 @@
 class Meal {
   constructor(time, comps, kcal) {
     this.id = Date.now();
-    let d = new Date();
-    this.date = Intl.DateTimeFormat('en-GB').format(d);
+    const d = new Date();
+    this.date = d.toLocaleDateString('en-CA');
     this.time = time;
     this.comps = comps;
     this.kcal = kcal;
+  }
+
+  static calculateCalories() {
+    const kcals = document.querySelectorAll('#kcal');
+    let totalKcal = 0;
+    kcals.forEach((meal) => {
+      if (meal.parentElement.style.display === '') {
+        if (meal.innerText === '') {
+          totalKcal = totalKcal;
+        } else {
+          totalKcal = totalKcal + parseInt(meal.innerText);
+        }
+      }
+    });
+    return totalKcal;
+  }
+
+  static totalCalories() {
+    const text = document.getElementById('totalKcalText');
+    const totalKcal = Meal.calculateCalories();
+    text.innerHTML = 'Total: ' + totalKcal;
   }
 }
 
@@ -25,10 +46,11 @@ class UI {
     const row = document.createElement('tr');
 
     row.setAttribute('data-id', meal.id);
+    row.setAttribute('data-date', meal.date);
     row.innerHTML = `
         <td>${meal.time}</td>
         <td>${meal.comps}</td>
-        <td>${meal.kcal}</td>
+        <td id="kcal">${meal.kcal}</td>
         <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
         `;
 
@@ -57,6 +79,14 @@ class UI {
     document.querySelector('#meal-components').value = '';
     document.querySelector('#meal-calories').value = '';
   }
+}
+
+function filterRowsByDate(date) {
+  const rows = Array.from(document.querySelectorAll('#meal-table tbody tr'));
+  rows.forEach((row) => {
+    const rowDate = row.getAttribute('data-date');
+    row.style.display = rowDate == date ? '' : 'none';
+  });
 }
 
 //store class
@@ -91,8 +121,19 @@ class Store {
     localStorage.setItem('meals', JSON.stringify(meals));
   }
 }
+
 //event: display
 document.addEventListener('DOMContentLoaded', UI.displayMeals);
+// filter and set date
+document.addEventListener('DOMContentLoaded', () => {
+  const dateInput = document.getElementById('datePicker'); // Change this to your date input ID
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString('en-CA'); // Get date in "YYYY-MM-DD" format
+  dateInput.value = formattedDate;
+  filterRowsByDate(formattedDate);
+});
+// calc cals
+document.addEventListener('DOMContentLoaded', Meal.totalCalories);
 
 //event:add
 document.querySelector('#meal-form').addEventListener('submit', (e) => {
@@ -101,11 +142,11 @@ document.querySelector('#meal-form').addEventListener('submit', (e) => {
   const time = document.querySelector('#meal-time').value;
   const comps = document.querySelector('#meal-components').value;
   const kcals = document.querySelector('#meal-calories').value;
-
   //instantiate
   const meal = new Meal(time, comps, kcals);
   // add meal to UI
   UI.addMealToList(meal);
+  Meal.totalCalories();
   //add meal to store
   Store.addMeal(meal);
   //show nigga msg
@@ -116,9 +157,26 @@ document.querySelector('#meal-form').addEventListener('submit', (e) => {
 //event:REMOVE
 document.querySelector('#meal-list').addEventListener('click', (e) => {
   UI.deleteMeal(e.target); //from UI
+  Meal.totalCalories();
   let id = e.target.parentElement.parentElement.getAttribute('data-id');
   Store.removeMeal(id); //from store
 });
+
+//changing date
+const datePicker = document.getElementById('datePicker');
+
+datePicker.addEventListener('change', (event) => {
+  const selectedDate = event.target.value;
+  if (selectedDate) {
+    filterRowsByDate(selectedDate);
+    Meal.totalCalories();
+  } else {
+    // Show no rows if no date is selected
+    const rows = Array.from(document.querySelectorAll('#meal-table tbody tr'));
+    rows.forEach((row) => (row.style.display = 'none'));
+  }
+});
+
 //tasks: background picture for meals and training
 //navbar
 // sort by date

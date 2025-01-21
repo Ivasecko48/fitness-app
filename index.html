@@ -17,15 +17,19 @@
   </head>
   <body>
     <nav>
-      <a href="#"><h2>Meals</h2></a>
-      <a href="#"><h2>Meals</h2></a>
+      <div class="container">
+        <div class="nav-links">
+          <a href="" id="meal-nav">Meals</a>
+          <a href="" id="trening-nav">Trening</a>
+        </div>
+        <a> <input type="date" id="datePicker" class="date-picker" /></a>
+      </div>
     </nav>
 
-    <div class="meal active">
+    <div class="meal-page">
       <div class="container">
         <h1>IF YOU WANNA GET BIG YOU GOTTA EAT BIG</h1>
         <h2>Select Date to Filter Rows</h2>
-        <input type="date" id="datePicker" class="date-picker" />
         <form id="meal-form">
           <label for="meal-time">Time(hour):</label>
           <input
@@ -65,48 +69,52 @@
         <h2 id="totalKcalText">Total:</h2>
       </div>
     </div>
-    <div class="strength">
+
+    <div class="trening-page hidden">
       <div class="container">
-        <h1>IF YOU WANNA GET BIG YOU GOTTA EAT BIG</h1>
+        <h1>IF YOU WANNA GET BIG YOU GOTTA TRAIN HARD</h1>
         <h2>Select Date to Filter Rows</h2>
-        <input type="date" id="datePicker" class="date-picker" />
-        <form id="meal-form">
-          <label for="meal-time">Time(hour):</label>
+        <form id="tren-form">
+          <label for="exercise-name">Exercise:</label>
           <input
-            type="number"
-            id="meal-time"
+            type="text"
+            id="exercise-name"
             class="form-control"
-            min="0"
-            max="23"
-            placeholder="hour(0-23)"
+            placeholder="name..."
           />
 
-          <label for="components">Meal comps</label>
-          <input type="text" id="meal-components" class="form-control" />
+          <label for="reps">Sets x reps</label>
+          <input type="text" id="reps" class="form-control" />
 
-          <label for="calories">Calories</label>
-          <input type="number" id="meal-calories" class="form-control" />
+          <label for="kilos">Weight</label>
+          <input
+            type="number"
+            id="kilos"
+            class="form-control"
+            placeholder="in kilos"
+          />
           <input
             type="submit"
-            id="meal-submit"
-            value="Add meal"
+            id="exer-submit"
+            value="Add exercise"
             class="btn btn-primary btn-block"
+            placeholder="Add exer"
           />
         </form>
 
         <table id="meal-table" class="table table-striped mt-4">
           <thead>
             <tr>
-              <th>TIME(h)</th>
-              <th>COMPONENTS</th>
-              <th>CALORIEN</th>
+              <th>EXERCISE</th>
+              <th>SETS X REPS</th>
+              <th>WEIGHT</th>
             </tr>
           </thead>
-          <tbody id="meal-list">
+          <tbody id="tren-list">
             <td></td>
           </tbody>
         </table>
-        <h2 id="totalKcalText">Total:</h2>
+        <h2 id="totalVolume">Total volume:</h2>
       </div>
     </div>
     <script src="script.js"></script>

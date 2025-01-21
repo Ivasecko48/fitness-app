@@ -1,13 +1,43 @@
-body {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body .meal-page {
   background-image: url('images/dragonball-z-kakarot-full-course-meal-1.avif');
   background-size: cover; /* Ensure the image covers the entire screen */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Prevent the image from repeating */
 }
-nav {
-  display: flex;
-  margin: ;
+
+body .trening-page {
+  background-image: url('images/vegeta-turns-super-saiyan-2-in-battle-of-gods.avif');
+  background-size: cover; /* Ensure the image covers the entire screen */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
 }
+nav {
+  width: 100%;
+  padding: 15px 20px;
+}
+
+nav .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+nav a {
+  padding: 0 10px;
+  font-size: 20px;
+  text-decoration: none;
+  color: #756b6b;
+}
+
+#datePicker {
+  margin-left: auto;
+}
+
 form {
   display: flex;
   align-items: center;
@@ -39,4 +69,8 @@ input[type='number']::-webkit-outer-spin-button {
   font-size: 1.5rem;
   text-align: right;
   margin-right: 30%;
+}
+
+.hidden {
+  display: none;
 }

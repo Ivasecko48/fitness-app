@@ -177,6 +177,19 @@ datePicker.addEventListener('change', (event) => {
   }
 });
 
+//toggling between meals and trening
+document.querySelector('#meal-nav').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.querySelector('.meal-page').classList.remove('hidden');
+  document.querySelector('.trening-page').classList.add('hidden');
+});
+
+document.querySelector('#trening-nav').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.querySelector('.meal-page').classList.add('hidden');
+  document.querySelector('.trening-page').classList.remove('hidden');
+});
+
 //tasks: background picture for meals and training
 //navbar
 // sort by date

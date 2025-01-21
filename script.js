@@ -48,8 +48,16 @@ class Tren {
   }
 
   static totalVolume() {
+    const rows = Array.from(document.querySelectorAll('#tren-table tbody tr'));
+    let totalVolume = 0;
+    rows.forEach((row) => {
+      if (row.style.display === '') {
+        let id = row.getAttribute('data-id');
+        totalVolume = totalVolume + getObjectById(id).volume;
+      }
+    });
     const text = document.getElementById('totalVolume');
-    const totalVolume = (text.innerHTML = 'Volume: ' + totalVolume);
+    text.innerHTML = 'Volume: ' + totalVolume;
   }
 }
 
@@ -145,19 +153,30 @@ class UI {
 }
 
 function filterRowsByDate(date) {
+  //meals
   const rows = Array.from(document.querySelectorAll('#meal-table tbody tr'));
   rows.forEach((row) => {
+    const rowDate = row.getAttribute('data-date');
+    row.style.display = rowDate == date ? '' : 'none';
+  });
+  //trens
+  const rows2 = Array.from(document.querySelectorAll('#tren-table tbody tr'));
+  rows2.forEach((row) => {
     const rowDate = row.getAttribute('data-date');
     row.style.display = rowDate == date ? '' : 'none';
   });
 }
 
-function filterRowsByDate(date) {
-  const rows = Array.from(document.querySelectorAll('#meal-table tbody tr'));
-  rows.forEach((row) => {
-    const rowDate = row.getAttribute('data-date');
-    row.style.display = rowDate == date ? '' : 'none';
-  });
+function getObjectById(id) {
+  // Retrieve the list from localStorage
+  const exercises = JSON.parse(localStorage.getItem('exers')) || [];
+
+  // Find the object with the matching id
+  const foundObject = exercises.find(
+    (exercise) => String(exercise.id) === String(id)
+  );
+
+  return foundObject;
 }
 
 //store class
@@ -238,6 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // calc cals
 document.addEventListener('DOMContentLoaded', Meal.totalCalories);
+// calc volume
+document.addEventListener('DOMContentLoaded', Tren.totalVolume);
 
 //event:add
 
@@ -273,8 +294,10 @@ document.querySelector('#tren-form').addEventListener('submit', (e) => {
   //instantiate
   const exer = new Tren(exName, sets, reps, weight);
   const volume = Tren.calculateVolume(sets, reps, weight);
+  exer.volume = volume;
   // add exer to UI
   UI.addExerciseToList(exer);
+  Tren.totalVolume();
   //add exer to store
   Store.addExercise(exer);
 
@@ -293,7 +316,7 @@ document.querySelector('#meal-list').addEventListener('click', (e) => {
 
 document.querySelector('#tren-list').addEventListener('click', (e) => {
   UI.deleteItem(e.target); //from UI
-  Meal.totalCalories();
+  Tren.totalVolume();
   let id = e.target.parentElement.parentElement.getAttribute('data-id');
   Store.removeExercise(id); //from store
 });
@@ -306,6 +329,7 @@ datePicker.addEventListener('change', (event) => {
   if (selectedDate) {
     filterRowsByDate(selectedDate);
     Meal.totalCalories();
+    Tren.totalVolume();
   } else {
     // Show no rows if no date is selected
     const rows = Array.from(document.querySelectorAll('#meal-table tbody tr'));
@@ -329,4 +353,3 @@ document.querySelector('#trening-nav').addEventListener('click', (e) => {
 //tasks: style it out!
 //navbar
 //total kcal and volume
-console.log(Store.getExercise());

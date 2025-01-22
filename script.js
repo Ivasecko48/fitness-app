@@ -53,6 +53,7 @@ class Tren {
     rows.forEach((row) => {
       if (row.style.display === '') {
         let id = row.getAttribute('data-id');
+        console.log(getObjectById(id));
         totalVolume = totalVolume + getObjectById(id).volume;
       }
     });
@@ -147,7 +148,7 @@ class UI {
 
     const inputs = container.querySelectorAll('input');
     inputs.forEach((input) => {
-      input.value = '';
+      if (input.type != 'submit') input.value = '';
     });
   }
 }
@@ -247,6 +248,7 @@ class Store {
 //event: display
 document.addEventListener('DOMContentLoaded', UI.displayMeals);
 document.addEventListener('DOMContentLoaded', UI.displayExercise);
+
 // filter and set date
 document.addEventListener('DOMContentLoaded', () => {
   const dateInput = document.getElementById('datePicker'); // Change this to your date input ID
@@ -297,10 +299,11 @@ document.querySelector('#tren-form').addEventListener('submit', (e) => {
   exer.volume = volume;
   // add exer to UI
   UI.addExerciseToList(exer);
-  Tren.totalVolume();
+
   //add exer to store
   Store.addExercise(exer);
 
+  Tren.totalVolume();
   UI.showAlert('NIGGA', 'success');
 
   UI.clearFields(2);

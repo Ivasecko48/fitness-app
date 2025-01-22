@@ -1,4 +1,4 @@
-* {
+ * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -16,9 +16,9 @@ body .meal-page,
 body .trening-page {
   min-height: 94vh;
   max-height: 100vh;
-  background-size: cover; /* Ensure the image covers the entire screen */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
 }
 
 nav {
@@ -182,4 +182,4 @@ input[type='number']::-webkit-outer-spin-button {
 
 input[type='submit'],input[type='text'] {
   width: 80%;
-}
+} */
